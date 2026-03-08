@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\save;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -56,8 +57,19 @@ class UserController extends Controller
         // $user = UserModel::where('username', 'manager9') ->firstOrFail();
         // return view('user', ['data' => $user]);
 
-        $user = UserModel::where('level_id', 2) ->count();
-        // dd($user);
+        // $user = UserModel::where('level_id', 2) ->count();
+        // // dd($user);
+        // return view('user', ['data' => $user]);
+
+        $user = UserModel::firstOrCreate(
+            [
+                'username' => 'manager33',
+                'nama' => 'Manager Tiga Tiga',
+                'password' => Hash::make('12345'),
+                'level_id' => 2
+            ],
+        );
+        $user->save();
         return view('user', ['data' => $user]);
     }
 }
